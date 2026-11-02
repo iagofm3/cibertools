@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CiberTools Pro — Calculadora Subredes VLSM, Generador SPF/DMARC, Nmap & Criptografía</title>
+  <meta name="description" content="Suite gratuita de herramientas online de Ciberseguridad, Redes y Administración de Sistemas: Calculadora de Subredes IPv4 y VLSM paso a paso, Generador DNS SPF y DMARC, Constructor de comandos Nmap y Analizador Criptográfico." />
+  <meta name="keywords" content="calculadora subredes, calculadora vlsm, cidr ipv4, generador spf dmarc, comandos nmap, ciberseguridad herramientas, asir, redes, puertos tcp udp" />
+  <meta property="og:title" content="CiberTools Pro — Suite Gratuita de Redes y Ciberseguridad" />
+  <meta property="og:description" content="Calculadora IPv4/VLSM, Generador SPF/DMARC, Constructor Nmap y Analizador de Contraseñas/Hashes para técnicos y estudiantes de Ciberseguridad." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <div class="logo-wrap">
+        <div class="logo-icon">🛡️</div>
+        <div>
+          <span class="logo-title">CiberTools<span class="accent">.pro</span></span>
+          <span class="logo-sub">Suite de Redes, Sistemas &amp; Ciberseguridad</span>
+        </div>
+      </div>
+
+      <nav class="nav-tabs" role="tablist">
+        <button class="nav-tab active" data-tool="subnet">🌐 Subredes &amp; VLSM</button>
+        <button class="nav-tab" data-tool="dmarc">📧 Generador SPF / DMARC</button>
+        <button class="nav-tab" data-tool="nmap">🎯 Constructor Nmap &amp; Puertos</button>
+        <button class="nav-tab" data-tool="crypto">🔐 Entropía &amp; Hashes SHA</button>
+      </nav>
+
+      <div class="nav-cta">
+        <button id="openAffiliateConfigBtn" class="btn-config" title="Configurar tu ID de Afiliado de Amazon">⚙️ Monetización</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MODAL PARA QUE IAGO PONGA SU ID DE AMAZON AFILIADOS EN 1 CLIC -->
+  <div id="affiliateModal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>💰 Panel de Monetización (Amazon Afiliados &amp; Servicios)</h3>
+        <button id="closeModalBtn" class="btn-close">✕</button>
+      </div>
+      <p class="modal-desc">
+        Todos los productos recomendados en la web llevan automáticamente tu etiqueta de afiliado de Amazon España (<code>?tag=tu-id-21</code>).
+        Cuando cualquier visitante haga clic y compre cualquier producto en Amazon en las siguientes 24h, te llevas la comisión automáticamente.
+      </p>
+      <div class="form-row">
+        <label>Tu ID de Afiliado de Amazon España (ej: <code>iagofm-21</code>)</label>
+        <input type="text" id="amazonTagInput" value="iagofm-21" />
+        <small>Puedes crear tu cuenta gratis en <a href="https://afiliados.amazon.es/" target="_blank" rel="noopener">afiliados.amazon.es</a> y poner aquí tu ID.</small>
+      </div>
+      <div class="modal-actions">
+        <button id="saveAffiliateBtn" class="btn-primary">💾 Guardar y Actualizar Enlaces</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="container main-layout">
+    <!-- COLUMNA IZQUIERDA: HERRAMIENTAS INTERACTIVAS -->
+    <div class="tools-column">
+
+      <!-- ========================================================
+           HERRAMIENTA 1: CALCULADORA DE SUBREDES IPv4 + VLSM
+           ======================================================== -->
+      <section class="tool-panel active" id="tool-subnet">
+        <div class="panel-header">
+          <div>
+            <span class="tool-badge">REDES · CCNA · ASIR / STI</span>
+            <h1>Calculadora de Subredes IPv4, CIDR y División VLSM</h1>
+            <p>Calcula al instante dirección de red, broadcast, rango de hosts útiles, máscara wildcard y divide cualquier red mediante VLSM paso a paso.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>1. Cálculo Rápido de Subred IPv4 / CIDR</h3>
+          <div class="grid-2">
+            <div class="field">
+              <label for="ipInput">Dirección IPv4</label>
+              <input type="text" id="ipInput" value="192.168.10.25" placeholder="Ej: 192.168.1.10" />
+            </div>
+            <div class="field">
+              <label for="cidrInput">Prefijo CIDR / Máscara de Subred</label>
+              <select id="cidrInput">
+                <option value="8">/8 — 255.0.0.0 (16.777.214 hosts)</option>
+                <option value="16">/16 — 255.255.0.0 (65.534 hosts)</option>
+                <option value="20">/20 — 255.255.240.0 (4.094 hosts)</option>
+                <option value="21">/21 — 255.255.248.0 (2.046 hosts)</option>
+                <option value="22">/22 — 255.255.252.0 (1.022 hosts)</option>
+                <option value="23">/23 — 255.255.254.0 (510 hosts)</option>
+                <option value="24" selected>/24 — 255.255.255.0 (254 hosts)</option>
+                <option value="25">/25 — 255.255.255.128 (126 hosts)</option>
+                <option value="26">/26 — 255.255.255.192 (62 hosts)</option>
+                <option value="27">/27 — 255.255.255.224 (30 hosts)</option>
+                <option value="28">/28 — 255.255.255.240 (14 hosts)</option>
+                <option value="29">/29 — 255.255.255.248 (6 hosts)</option>
+                <option value="30">/30 — 255.255.255.252 (2 hosts · Enlace P2P)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="results-grid" id="subnetResults">
+            <div class="res-box">
+              <span>Dirección de Red</span>
+              <strong id="resNetAddr">192.168.10.0/24</strong>
+            </div>
+            <div class="res-box">
+              <span>Máscara Decimal</span>
+              <strong id="resNetMask">255.255.255.0</strong>
+            </div>
+            <div class="res-box">
+              <span>Máscara Wildcard (ACL/OSPF)</span>
+              <strong id="resWildcard">0.0.0.255</strong>
+            </div>
+            <div class="res-box">
+              <span>Dirección de Broadcast</span>
+              <strong id="resBroadcast">192.168.10.255</strong>
+            </div>
+            <div class="res-box">
+              <span>Rango de Hosts Útiles</span>
+              <strong id="resRange">192.168.10.1 – 192.168.10.254</strong>
+            </div>
+            <div class="res-box">
+              <span>Total Hosts Utilizables</span>
+              <strong id="resHosts">254 equipos</strong>
+            </div>
+          </div>
+
+          <div class="binary-box">
+            <span>Representación Binaria de la Máscara:</span>
+            <code id="resBinary">11111111.11111111.11111111.00000000</code>
+          </div>
+        </div>
+
+        <!-- CALCULADORA VLSM PASO A PASO -->
+        <div class="card">
+          <h3>2. Calculadora automática de Subredes VLSM (Para Prácticas y Exámenes)</h3>
+          <p class="card-sub">Introduce la red base y el número de equipos (hosts) que necesitas en cada departamento/VLAN separados por comas. El algoritmo ordena de mayor a menor y calcula todas las subredes sin solapamientos.</p>
+          <div class="grid-3">
+            <div class="field">
+              <label for="vlsmBaseIp">Red Base (ej: 192.168.1.0)</label>
+              <input type="text" id="vlsmBaseIp" value="192.168.1.0" />
+            </div>
+            <div class="field">
+              <label for="vlsmHosts">Hosts por Subred / VLAN (separados por coma)</label>
+              <input type="text" id="vlsmHosts" value="60, 25, 10, 2" placeholder="Ej: 100, 50, 20, 2" />
+            </div>
+            <div class="field align-end">
+              <button type="button" id="calcVlsmBtn" class="btn-primary full-w">⚡ Calcular Tabla VLSM</button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Subred</th>
+                  <th>Hosts Pedidos</th>
+                  <th>Hosts Útiles</th>
+                  <th>Dirección de Red</th>
+                  <th>Máscara</th>
+                  <th>Primer Host – Último Host</th>
+                  <th>Broadcast</th>
+                </tr>
+              </thead>
+              <tbody id="vlsmTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           HERRAMIENTA 2: GENERADOR SPF Y DMARC PARA CORREO SEGURO
+           ======================================================== -->
+      <section class="tool-panel" id="tool-dmarc">
+        <div class="panel-header">
+          <div>
+            <span class="tool-badge">SEGURIDAD DE CORREO · ANTI-PHISHING</span>
+            <h1>Generador Visual de Registros DNS SPF y DMARC</h1>
+            <p>Protege cualquier dominio frente a suplantación de identidad (Email Spoofing) y evita que los correos corporativos caigan en la carpeta de SPAM.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="grid-2">
+            <div class="field">
+              <label for="dmarcDomain">Dominio de la empresa</label>
+              <input type="text" id="dmarcDomain" value="miempresa.es" placeholder="Ej: tallersantiago.es" />
+            </div>
+            <div class="field">
+              <label for="spfProvider">Proveedor de Correo Principal</label>
+              <select id="spfProvider">
+                <option value="include:_spf.google.com">Google Workspace / Gmail Profesional</option>
+                <option value="include:spf.protection.outlook.com">Microsoft 365 / Outlook Corporativo</option>
+                <option value="mx a">Servidor de Hosting propio (cPanel / Dinahosting / Ionos)</option>
+                <option value="include:_spf.google.com include:servers.mcsv.net">Google Workspace + Mailchimp</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="dmarcPolicy">Política de bloqueo DMARC</label>
+              <select id="dmarcPolicy">
+                <option value="quarantine" selected>Quarantine (Recomendado · Envía falsificaciones a SPAM)</option>
+                <option value="reject">Reject (Máxima seguridad · Bloquea el correo falso)</option>
+                <option value="none">None (Modo monitorización · Solo envía alertas)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="dmarcEmail">Correo para recibir reportes de intentos de ataque (RUA)</label>
+              <input type="text" id="dmarcEmail" value="seguridad@miempresa.es" />
+            </div>
+          </div>
+
+          <div class="output-block">
+            <div class="output-header">
+              <span>1️⃣ Registro TXT SPF (Pegar en el host <code>@</code> de la Zona DNS)</span>
+              <button class="btn-copy" data-copy="spfOutput">📋 Copiar SPF</button>
+            </div>
+            <code id="spfOutput" class="code-box">v=spf1 include:_spf.google.com ~all</code>
+          </div>
+
+          <div class="output-block">
+            <div class="output-header">
+              <span>2️⃣ Registro TXT DMARC (Pegar en el host <code>_dmarc</code> de la Zona DNS)</span>
+              <button class="btn-copy" data-copy="dmarcOutput">📋 Copiar DMARC</button>
+            </div>
+            <code id="dmarcOutput" class="code-box">v=DMARC1; p=quarantine; rua=mailto:seguridad@miempresa.es; pct=100; adkim=r; aspf=r;</code>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           HERRAMIENTA 3: CONSTRUCTOR DE COMANDOS NMAP & PUERTOS
+           ======================================================== -->
+      <section class="tool-panel" id="tool-nmap">
+        <div class="panel-header">
+          <div>
+            <span class="tool-badge">AUDITORÍA DE RED · PENTESTING ÉTICO</span>
+            <h1>Constructor Visual de Escaneos Nmap &amp; Buscador de Puertos</h1>
+            <p>Genera el comando exacto de Nmap para tus auditorías de red o laboratorios de Ciberseguridad (Kali Linux / Parrot OS) y consulta los puertos críticos.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="grid-3">
+            <div class="field">
+              <label for="nmapTarget">IP, Rango o Dominio Objetivo</label>
+              <input type="text" id="nmapTarget" value="192.168.1.0/24" placeholder="Ej: 10.10.10.5 o 192.168.1.0/24" />
+            </div>
+            <div class="field">
+              <label for="nmapScanType">Tipo de Escaneo</label>
+              <select id="nmapScanType">
+                <option value="-sS" selected>Escaneo Sigiloso SYN (-sS)</option>
+                <option value="-sT">Conexión TCP Completa (-sT)</option>
+                <option value="-sU">Escaneo de Puertos UDP (-sU)</option>
+                <option value="-sn">Descubrimiento de Equipos Vivos / Ping Sweep (-sn)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="nmapSpeed">Velocidad / Plantilla (-T)</label>
+              <select id="nmapSpeed">
+                <option value="-T2">Sigiloso / Lento (-T2 · Evita IDS)</option>
+                <option value="-T3">Normal (-T3)</option>
+                <option value="-T4" selected>Rápido y Recomendado (-T4)</option>
+                <option value="-T5">Agresivo / CTF (-T5)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="checks-row">
+            <label class="check-pill"><input type="checkbox" id="nmapSv" checked /> Detectar Versiones de Servicios (<code>-sV</code>)</label>
+            <label class="check-pill"><input type="checkbox" id="nmapOs" /> Detectar Sistema Operativo (<code>-O</code>)</label>
+            <label class="check-pill"><input type="checkbox" id="nmapSc" checked /> Scripts por Defecto NSE (<code>-sC</code>)</label>
+            <label class="check-pill"><input type="checkbox" id="nmapVuln" /> Buscar Vulnerabilidades CVE (<code>--script vuln</code>)</label>
+            <label class="check-pill"><input type="checkbox" id="nmapAllPorts" /> Todos los 65.535 puertos (<code>-p-</code>)</label>
+            <label class="check-pill"><input type="checkbox" id="nmapPn" /> No hacer Ping previo (<code>-Pn</code>)</label>
+          </div>
+
+          <div class="output-block">
+            <div class="output-header">
+              <span>💻 Comando Nmap listo para ejecutar en terminal:</span>
+              <button class="btn-copy" data-copy="nmapOutput">📋 Copiar Comando</button>
+            </div>
+            <code id="nmapOutput" class="code-box">sudo nmap -sS -T4 -sV -sC 192.168.1.0/24</code>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🔎 Buscador Instantáneo de Puertos TCP/UDP y Riesgos</h3>
+          <input type="text" id="portSearchInput" placeholder="Busca un puerto o protocolo (ej: 22, 445, SMB, RDP, 3389, DNS, MySQL...)" />
+          <div class="table-wrap" style="margin-top: 0.85rem;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Puerto</th>
+                  <th>Protocolo</th>
+                  <th>Servicio</th>
+                  <th>Notas de Seguridad / Auditoría</th>
+                </tr>
+              </thead>
+              <tbody id="portsTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           HERRAMIENTA 4: ENTROPÍA DE CONTRASEÑAS & HASHES SHA-256
+           ======================================================== -->
+      <section class="tool-panel" id="tool-crypto">
+        <div class="panel-header">
+          <div>
+            <span class="tool-badge">CRIPTOGRAFÍA · PRIVACIDAD 100% EN NAVEGADOR</span>
+            <h1>Generador de Contraseñas de Alta Entropía &amp; Calculadora SHA-256</h1>
+            <p>Calcula cuánto tardaría una tarjeta gráfica de fuerza bruta (Hashcat / RTX 4090) en romper una clave y genera hashes criptográficos sin que el texto salga de tu dispositivo.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>1. Generador y Analizador de Fuerza Bruta</h3>
+          <div class="pass-row">
+            <input type="text" id="passInput" value="" placeholder="Escribe o genera una contraseña para medir su resistencia..." />
+            <button type="button" id="genPassBtn" class="btn-primary">🎲 Generar Clave Segura (20 car.)</button>
+            <button type="button" class="btn-copy" data-copy="passInput">📋 Copiar</button>
+          </div>
+
+          <div class="results-grid">
+            <div class="res-box">
+              <span>Bits de Entropía</span>
+              <strong id="resEntropy">-- bits</strong>
+            </div>
+            <div class="res-box">
+              <span>Tiempo estimado ante Fuerza Bruta (GPU)</span>
+              <strong id="resCrackTime">--</strong>
+            </div>
+            <div class="res-box">
+              <span>Nivel de Seguridad</span>
+              <strong id="resPassGrade">--</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>2. Calculadora Instantánea de Hash SHA-256 / SHA-512 / Base64</h3>
+          <div class="field">
+            <label for="hashSourceInput">Texto o cadena a codificar</label>
+            <input type="text" id="hashSourceInput" value="CiberseguridadSantiago2026" />
+          </div>
+          <div class="output-block">
+            <div class="output-header">
+              <span>Hash SHA-256 (Estándar de integridad)</span>
+              <button class="btn-copy" data-copy="sha256Output">📋 Copiar SHA-256</button>
+            </div>
+            <code id="sha256Output" class="code-box">--</code>
+          </div>
+          <div class="output-block">
+            <div class="output-header">
+              <span>Codificación Base64</span>
+              <button class="btn-copy" data-copy="base64Output">📋 Copiar Base64</button>
+            </div>
+            <code id="base64Output" class="code-box">--</code>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- COLUMNA DERECHA: SIDEBAR DE MONETIZACIÓN (AFILIADOS AMAZON + SERVICIOS) -->
+    <aside class="sidebar">
+      <div class="promo-card affiliate-box">
+        <div class="promo-badge">🔥 TOP EQUIPAMIENTO CIBERSEGURIDAD &amp; REDES</div>
+        <h3>Hardware Recomendado de Laboratorio</h3>
+        <p class="promo-sub">Equipamiento verificado compatible con Kali Linux, auditoría Wi-Fi (Modo Monitor), autenticación FIDO2 y prácticas de redes.</p>
+
+        <div class="product-list" id="affiliateProductsList">
+          <!-- Se rellena dinámicamente con el tag de Amazon de Iago -->
+        </div>
+      </div>
+
+      <div class="promo-card service-box">
+        <div class="promo-badge emerald">🛡️ SOPORTE PROFESIONAL</div>
+        <h3>¿Tu empresa necesita blindar su correo o su web?</h3>
+        <p class="promo-sub">Configuración profesional de registros SPF/DMARC anti-suplantación, blindaje de cabeceras OWASP y diseño web de alta velocidad.</p>
+        <a href="https://iagofm3.github.io/cv/" target="_blank" rel="noopener" class="btn-service">
+          👨‍💻 Ver Perfil Técnico y Contacto Directo →
+        </a>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>Desarrollado por <strong>Iago Fernández Martínez</strong> · Sistemas, Redes y Ciberseguridad</span>
+      <a href="https://iagofm3.github.io/cv/" target="_blank" rel="noopener">Portfolio &amp; CV Interactivo</a>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast">✅ Copiado al portapapeles</div>
+  <script src="script.js"></script>
+</body>
+</html>
