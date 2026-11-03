@@ -374,19 +374,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 6. Modal de Afiliados
-  const modal = document.getElementById('affiliateModal');
-  const tagInput = document.getElementById('amazonTagInput');
-  tagInput.value = localStorage.getItem('cibertools_amazon_tag') || 'iagofm-21';
-
-  document.getElementById('openAffiliateConfigBtn').addEventListener('click', () => modal.classList.remove('hidden'));
-  document.getElementById('closeModalBtn').addEventListener('click', () => modal.classList.add('hidden'));
-  document.getElementById('saveAffiliateBtn').addEventListener('click', () => {
-    localStorage.setItem('cibertools_amazon_tag', tagInput.value.trim() || 'iagofm-21');
-    renderAffiliateProducts();
-    modal.classList.add('hidden');
-    showToast('💰 ID de Afiliado de Amazon actualizado');
-  });
+  // 6. Modal de Afiliados (si existe)
+  const openBtn = document.getElementById('openAffiliateConfigBtn');
+  if (openBtn) {
+    const modal = document.getElementById('affiliateModal');
+    const tagInput = document.getElementById('amazonTagInput');
+    if (tagInput) tagInput.value = localStorage.getItem('cibertools_amazon_tag') || 'iagofm-21';
+    openBtn.addEventListener('click', () => modal.classList.remove('hidden'));
+    document.getElementById('closeModalBtn')?.addEventListener('click', () => modal.classList.add('hidden'));
+    document.getElementById('saveAffiliateBtn')?.addEventListener('click', () => {
+      localStorage.setItem('cibertools_amazon_tag', tagInput.value.trim() || 'iagofm-21');
+      renderAffiliateProducts();
+      modal.classList.add('hidden');
+      showToast('💰 ID de Afiliado de Amazon actualizado');
+    });
+  }
 
   renderAffiliateProducts();
 });
