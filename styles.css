@@ -629,3 +629,88 @@ input[type="text"]:focus, select:focus {
 .toast.show {
   transform: translateY(0);
 }
+
+/* ==========================================================
+   RECOMENDACIONES CONTEXTUALES DE ALTA CONVERSIÓN (AMAZON)
+   ========================================================== */
+.in-tool-recommendation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  border-left: 4px solid var(--amber);
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  margin-top: 1.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.in-tool-recommendation .rec-icon {
+  font-size: 2.2rem;
+  flex-shrink: 0;
+}
+
+.in-tool-recommendation .rec-content {
+  flex: 1;
+}
+
+.in-tool-recommendation .rec-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--amber);
+  background: rgba(245, 158, 11, 0.12);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 0.35rem;
+}
+
+.in-tool-recommendation h4 {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.25rem 0;
+}
+
+.in-tool-recommendation p {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.in-tool-recommendation .rec-btn {
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #0f172a;
+  font-weight: 800;
+  font-size: 0.84rem;
+  padding: 0.75rem 1.2rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.3);
+  transition: all 0.18s ease;
+}
+
+.in-tool-recommendation .rec-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.5);
+}
+
+@media (max-width: 768px) {
+  .in-tool-recommendation {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .in-tool-recommendation .rec-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

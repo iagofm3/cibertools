@@ -240,41 +240,59 @@ async function updateCryptoHashes() {
 const affiliateCatalog = [
   {
     title: 'Alfa Network AWUS036ACH (Wi-Fi Kali Linux)',
-    tag: 'TOP #1 AUDITORÍA',
-    desc: 'Antena Wi-Fi USB de doble banda con Modo Monitor e Inyección de paquetes para prácticas de Ciberseguridad.',
+    tag: '🔥 TOP AUDITORÍA',
+    desc: 'Antena Wi-Fi USB con Modo Monitor e Inyección para prácticas de Ciberseguridad y Pentesting ético.',
     query: 'Alfa+Network+AWUS036ACH+Kali+Linux'
   },
   {
+    title: 'SanDisk Ultra 128GB USB 3.0 (Live USB)',
+    tag: '⚡ IMPULSO (< 15€)',
+    desc: 'Pendrive ultrarrápido para arrancar sistemas en vivo con Ventoy, Kali Linux, Tails o rescate.',
+    query: 'SanDisk+Ultra+128GB+USB+3.0'
+  },
+  {
     title: 'YubiKey 5 NFC — Llave de Seguridad FIDO2',
-    tag: 'ANTI-PHISHING',
-    desc: 'Autenticación física en dos pasos (2FA/MFA) por USB-A/C y NFC para blindar cuentas críticas.',
+    tag: '🛡️ ANTI-PHISHING',
+    desc: 'Autenticación física en dos pasos (2FA/MFA) por USB y NFC para blindar tus cuentas de hosting y correo.',
     query: 'Yubico+YubiKey+5+NFC'
   },
   {
     title: 'Switch Gestionable Gigabit VLAN (8 Puertos)',
-    tag: 'LABORATORIO REDES',
-    desc: 'Ideal para montar laboratorios caseros de segmentación VLAN (802.1Q), QoS y prácticas de redes.',
+    tag: '🌐 LAB REDES',
+    desc: 'El switch más barato para prácticas de segmentación VLAN 802.1Q, QoS y topologías de ASIR/CCNA.',
     query: 'Switch+Gestionable+Gigabit+VLAN+TP-Link+Netgear'
   },
   {
-    title: 'Kit Raspberry Pi 5 (8GB RAM) HomeLab Server',
-    tag: 'SERVIDOR / PI-HOLE',
-    desc: 'Monta tu propio firewall DNS Pi-hole, servidor VPN WireGuard o laboratorio de contenedores en casa.',
-    query: 'Raspberry+Pi+5+8GB+Kit'
+    title: 'Adaptador USB-C a Ethernet Gigabit RJ45',
+    tag: '💻 ESENCIAL (< 15€)',
+    desc: 'Imprescindible para conectar portátiles modernos a switches y routers en prácticas de laboratorio.',
+    query: 'Adaptador+USB-C+a+Ethernet+Gigabit+RJ45'
   },
   {
-    title: 'Tester Certificador de Cables RJ45 / PoE',
-    tag: 'TÉCNICO SISTEMAS',
-    desc: 'Comprobador de continuidad de red Ethernet Cat6/Cat7 y detector PoE para instalaciones.',
-    query: 'Tester+Cable+Red+RJ45+PoE+Profesional'
+    title: 'Kit Herramientas Red: Crimpadora + Tester RJ45',
+    tag: '🛠️ TÉCNICO FP',
+    desc: 'Kit completo con crimpadora, comprobador de pares, pelacables y conectores RJ45 Cat6.',
+    query: 'Kit+Crimpadora+Tester+Cable+Red+RJ45'
+  },
+  {
+    title: 'Kit Raspberry Pi 5 (8GB RAM) HomeLab Server',
+    tag: '🚀 SERVIDOR CASERO',
+    desc: 'Monta tu propio servidor DNS Pi-hole, VPN WireGuard, firewall o Docker en casa.',
+    query: 'Raspberry+Pi+5+8GB+Kit'
   }
 ];
 
 function renderAffiliateProducts() {
   const tag = localStorage.getItem('cibertools_amazon_tag') || 'iagofm-21';
   const container = document.getElementById('affiliateProductsList');
-  if (!container) return;
 
+  // Actualizar los enlaces de los banners contextuales dentro de las herramientas
+  document.querySelectorAll('.dynamic-amazon-link').forEach((link) => {
+    const q = link.dataset.query || 'ciberseguridad+redes';
+    link.href = `https://www.amazon.es/s?k=${q}&tag=${encodeURIComponent(tag)}`;
+  });
+
+  if (!container) return;
   container.innerHTML = '';
   affiliateCatalog.forEach((item) => {
     const url = `https://www.amazon.es/s?k=${item.query}&tag=${encodeURIComponent(tag)}`;
@@ -289,7 +307,7 @@ function renderAffiliateProducts() {
         <span class="prod-tag">${item.tag}</span>
       </div>
       <div class="prod-desc">${item.desc}</div>
-      <div class="prod-cta">Ver precio y opiniones en Amazon.es →</div>
+      <div class="prod-cta">👉 Comprobar oferta actual en Amazon.es →</div>
     `;
     container.appendChild(a);
   });
